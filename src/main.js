@@ -134,7 +134,7 @@ const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
 if (isTouchDevice) {
   document.body.classList.add('touch-detected');
 
-  // Wire D-pad buttons to movePlayer
+  // Wire D-pad buttons with long-press support
   const dpadDirections = {
     'dpad-up': 'up',
     'dpad-down': 'down',
@@ -142,9 +142,29 @@ if (isTouchDevice) {
     'dpad-right': 'right',
   };
   for (const [id, direction] of Object.entries(dpadDirections)) {
-    document.getElementById(id).addEventListener('click', () => {
+    const btn = document.getElementById(id);
+    let delayTimer = null;
+    let repeatTimer = null;
+
+    function stopRepeat() {
+      clearTimeout(delayTimer);
+      clearInterval(repeatTimer);
+      delayTimer = null;
+      repeatTimer = null;
+    }
+
+    btn.addEventListener('pointerdown', (e) => {
+      e.preventDefault();
+      stopRepeat();
       executeMove(direction);
+      delayTimer = setTimeout(() => {
+        repeatTimer = setInterval(() => executeMove(direction), 150);
+      }, 300);
     });
+
+    btn.addEventListener('pointerup', stopRepeat);
+    btn.addEventListener('pointerleave', stopRepeat);
+    btn.addEventListener('pointercancel', stopRepeat);
   }
 }
 
