@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Maze Runner</title>
+  <link rel="stylesheet" href="src/style.css">
+</head>
+<body>
+  <div class="game-container">
+    <h1 class="game-title">Maze Runner</h1>
+    <div class="controls-bar">
+      <span class="level-indicator" id="level-indicator">Level 1</span>
+      <span class="step-counter">Steps: <span id="step-count">0</span></span>
+      <button id="new-maze-btn" class="game-btn">New Maze</button>
+      <button id="show-path-btn" class="game-btn">Show Path</button>
+      <button id="hint-btn" class="game-btn">Hint</button>
+    </div>
+    <div class="canvas-wrapper">
+      <canvas id="maze-canvas"></canvas>
+    </div>
+    <div class="dpad-container" id="dpad-container">
+      <div class="dpad">
+        <button class="dpad-btn dpad-up" id="dpad-up" aria-label="Move up">&#9650;</button>
+        <button class="dpad-btn dpad-left" id="dpad-left" aria-label="Move left">&#9664;</button>
+        <button class="dpad-btn dpad-center" aria-hidden="true"></button>
+        <button class="dpad-btn dpad-right" id="dpad-right" aria-label="Move right">&#9654;</button>
+        <button class="dpad-btn dpad-down" id="dpad-down" aria-label="Move down">&#9660;</button>
+      </div>
+    </div>
+  </div>
+  <script type="module" src="src/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,190 @@
+:root {
+  --wall-color: #2D3748;
+  --cell-bg: #FFFFFF;
+  --player-color: #4299E1;
+  --start-color: rgba(72, 187, 120, 0.3);
+  --end-color: rgba(245, 101, 101, 0.3);
+  --bg-color: #F7FAFC;
+  --card-bg: #FFFFFF;
+  --text-color: #2D3748;
+  --btn-bg: #EDF2F7;
+  --btn-hover: #E2E8F0;
+  --btn-text: #2D3748;
+  --path-color: rgba(236, 201, 75, 0.7);
+  --hint-color: rgba(236, 201, 75, 0.35);
+  --path-line-width: 3;
+  --font-stack: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg-color);
+  font-family: var(--font-stack);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
+.game-container {
+  text-align: center;
+  max-width: 640px;
+  width: 100%;
+  padding: 20px;
+}
+
+.game-title {
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--text-color);
+  margin: 0 0 16px 0;
+}
+
+.controls-bar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.step-counter {
+  font-size: 1rem;
+  color: var(--text-color);
+  font-weight: 500;
+}
+
+.game-btn {
+  padding: 8px 20px;
+  border: 1px solid #CBD5E0;
+  border-radius: 6px;
+  background: var(--btn-bg);
+  color: var(--btn-text);
+  font-family: var(--font-stack);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+}
+
+.game-btn:hover {
+  background: var(--btn-hover);
+}
+
+.canvas-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+#maze-canvas {
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  max-width: 600px;
+  max-height: 600px;
+  touch-action: none;
+}
+
+@media (max-width: 640px) {
+  .game-container {
+    padding: 12px;
+  }
+
+  .game-title {
+    font-size: 1.4rem;
+  }
+
+  #maze-canvas {
+    max-width: calc(100vw - 24px);
+    max-height: calc(100vw - 24px);
+  }
+}
+
+/* Level indicator */
+.level-indicator {
+  font-weight: 600;
+  color: var(--text-color);
+  font-size: 1rem;
+}
+
+/* D-Pad (touch devices only) */
+.dpad-container {
+  display: none;
+  justify-content: center;
+  padding-top: 16px;
+}
+
+.dpad {
+  display: grid;
+  grid-template-areas:
+    ".     up    ."
+    "left  center right"
+    ".     down  .";
+  grid-template-columns: repeat(3, 48px);
+  grid-template-rows: repeat(3, 48px);
+  gap: 8px;
+  justify-content: center;
+}
+
+.dpad-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 1px solid var(--btn-border, #CBD5E0);
+  border-radius: 6px;
+  background: var(--btn-bg);
+  color: var(--btn-text);
+  font-size: 1.2rem;
+  cursor: pointer;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.dpad-btn:active {
+  background: var(--btn-hover);
+  transform: scale(0.95);
+}
+
+.dpad-up    { grid-area: up; }
+.dpad-down  { grid-area: down; }
+.dpad-left  { grid-area: left; }
+.dpad-right { grid-area: right; }
+.dpad-center { grid-area: center; visibility: hidden; }
+
+/* Show D-pad on touch devices with coarse pointer */
+@media (pointer: coarse), (hover: none) {
+  .dpad-container.touch-detected {
+    display: flex;
+  }
+}
+
+/* Mobile breakpoint */
+@media (max-width: 480px) {
+  .game-title {
+    font-size: 1.2rem;
+  }
+
+  .controls-bar {
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: center;
+  }
+
+  .level-indicator {
+    font-size: 1rem;
+  }
+
+  #maze-canvas {
+    max-width: calc(100vw - 24px);
+    max-height: calc(100vw - 24px);
+  }
+
+  .dpad-container.touch-detected {
+    max-width: calc(100vw - 24px);
+  }
+}
