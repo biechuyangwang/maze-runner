@@ -112,7 +112,7 @@ body {
 
 /* D-Pad (touch devices only) */
 .dpad-container {
-  display: none;
+  display: flex;
   justify-content: center;
   padding-top: 16px;
 }
@@ -156,12 +156,6 @@ body {
 .dpad-right { grid-area: right; }
 .dpad-center { grid-area: center; visibility: hidden; }
 
-/* Show D-pad on touch devices with coarse pointer */
-@media (pointer: coarse), (hover: none) {
-  .dpad-container.touch-detected {
-    display: flex;
-  }
-}
 
 /* Mobile breakpoint */
 @media (max-width: 480px) {
